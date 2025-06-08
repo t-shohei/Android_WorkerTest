@@ -1,13 +1,13 @@
-package com.example.workmanagertest.periodictask
+package com.example.workmanagertest.domain.worker
 
 import android.content.Context
 import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.example.workmanagertest.data.repositry.RepositoryFactory
+import com.example.workmanagertest.data.repositry.factory.RepositoryFactory
 import com.example.workmanagertest.data.repositry.TaskRepository
-import com.example.workmanagertest.dto.TestWorkListDto
-import com.example.workmanagertest.periodictask.tasks.TestSealed
+import com.example.workmanagertest.domain.periodictask.TestWorkResult
+import com.example.workmanagertest.domain.periodictask.tasks.PeriodicTask
 import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.serialization.json.Json
 import kotlin.reflect.full.createInstance
@@ -39,7 +39,7 @@ class TestWorker(
             }
         }
         Log.d("TestWorker", "tasks: $tasks")
-        val retryList = mutableListOf<TestSealed>()
+        val retryList = mutableListOf<PeriodicTask>()
         tasks.forEach {
             withTimeoutOrNull(it.timeoutMillis) {
                 val taskResult = it(context)
@@ -66,10 +66,10 @@ class TestWorker(
         }
     }
 
-    private fun createTaskInstance(className: String): TestSealed? {
+    private fun createTaskInstance(className: String): PeriodicTask? {
         return runCatching {
             val kClass = Class.forName(className).kotlin
-            kClass.objectInstance as? TestSealed ?: kClass.createInstance() as? TestSealed
+            kClass.objectInstance as? PeriodicTask ?: kClass.createInstance() as? PeriodicTask
         }.onFailure {
             Log.e("TestWorker", "クラス生成に失敗: $className", it)
         }.getOrNull()

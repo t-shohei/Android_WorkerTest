@@ -13,7 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.example.workmanagertest.periodictask.TestWorkBuilder
+import com.example.workmanagertest.domain.usecase.UseCaseFactory
 import com.example.workmanagertest.ui.theme.WorkManagerTestTheme
 
 class MainActivity : ComponentActivity() {
@@ -42,5 +42,6 @@ fun Greeting() {
 
 private fun callTest(context: Context) {
     Log.d("test", "call TestWorkBuilder")
-    TestWorkBuilder(context.applicationContext)()
+    val useCase = UseCaseFactory.createTestWorkerBuilder(context.applicationContext)
+    useCase()
 }

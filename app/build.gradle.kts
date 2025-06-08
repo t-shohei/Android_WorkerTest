@@ -66,6 +66,20 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(kotlin("reflect"))
     implementation("com.squareup.moshi:moshi:1.15.0")
+    // Kotlin テスト用
+    testImplementation ("org.jetbrains.kotlin:kotlin-test:1.9.10")
+// JUnit（Kotlinでの標準テスト）
+    testImplementation ("junit:junit:4.13.2")
+
+// MockK（モックライブラリ）
+    testImplementation ("io.mockk:mockk:1.13.5")
+
+// kotlinx-coroutines-test（runTest などを使う場合）
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+
+// kotlinx-serialization（JSON文字列操作のため）
+    implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+
 }
 protobuf {
     protoc {

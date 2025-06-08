@@ -1,4 +1,4 @@
-package com.example.workmanagertest.periodictask
+package com.example.workmanagertest.domain.periodictask
 
 import kotlinx.serialization.Serializable
 @Serializable
